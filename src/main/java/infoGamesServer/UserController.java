@@ -1,6 +1,7 @@
 package infoGamesServer;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import infoGamesServer.models.AuthData;
+import infoGamesServer.models.Token;
 import infoGamesServer.models.User;
 import infoGamesServer.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class UserController {
 
+    //TODO Возврат статусов
     private final UserService userService;
 
     @Autowired
@@ -19,32 +21,47 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping(value = "/users")
+    @PostMapping(value = "/v1/users")
     public ResponseEntity<?> create(@RequestBody User user) {
-        userService.create(user);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        Token token = userService.create(user);
+        if (token != null)
+            return new ResponseEntity<>(token, HttpStatus.CREATED);
+        return new ResponseEntity<>(null, HttpStatus.CONFLICT);
     }
 
-    @GetMapping(value = "/users")
-    public ResponseEntity<User> read(@RequestBody User token) {
-//        System.out.println(token.getAccessToken());
-        final User user = userService.read(token.getAccessToken());
-
+    @GetMapping(value = "/v1/users")
+    public ResponseEntity<User> read(@RequestHeader("Authorization") String token) {
+        System.out.println(token);
+        final User user = userService.read(token);
         return user != null
                 ? new ResponseEntity<>(user, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @PutMapping(value = "/users")
-    public ResponseEntity<?> update(@RequestBody User user) {
-        final boolean updated = userService.update(user.getAccessToken(), user.getScore(), user.getAccess(), user.getTestsBests(), user.getGamesBests());
-        return updated
-                ? new ResponseEntity<>(HttpStatus.OK)
-                : new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
+    @GetMapping(value = "/v1/users/login")
+    public ResponseEntity<User> readByLogin(@RequestHeader("Authorization") String authStr) {
+        String[] sep = authStr.split(":");
+        String login = sep[0];
+        String password = sep[1];
+        final User user = userService.readByLogin(login, password);
+        return user != null
+                ? new ResponseEntity<>(user, HttpStatus.OK)
+                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-//    @GetMapping
-//    public String test() {
-//        return "Test get chi-cha-chuh";
-//    }
+
+    @GetMapping(value = "/test")
+    public ResponseEntity<?> test(@RequestHeader("Authorization") String token) {
+        System.out.println(token);
+        return null;
+    }
+
+
+    @PutMapping(value = "/v1/users")
+    public ResponseEntity<?> update(@RequestBody User user) {
+        final boolean updated = userService.update(user.getToken(), user.getScore(), user.getAccess(), user.getTestsBests(), user.getGamesBests());
+        return updated
+                ? new ResponseEntity<>(true, HttpStatus.OK)
+                : new ResponseEntity<>(false, HttpStatus.NOT_MODIFIED);
+    }
 }

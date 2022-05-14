@@ -21,7 +21,7 @@ public class InfoGamesServerApplication {
 		String userCollection = "users";
 
 		String jsonStr = "{\"_id\": 1,\"email\": \"email\", \"login\": \"login\"," +
-				" \"password\": \"password\", \"accessToken\": \"token\", \"score\": 0," +
+				" \"password\": \"password\", \"token\": \"token\", \"score\": 0," +
 				" \"access\" : [true, false, false, false, false, false]," +
 				" \"testsBests\": [null, null, null, null, null, null]," +
 				" \"gamesBests\": [0]}";

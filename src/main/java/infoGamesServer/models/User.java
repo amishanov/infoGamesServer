@@ -15,7 +15,7 @@ public class User {
      @Indexed(unique = true)
     private String login;
     private String password;
-    private String accessToken;
+    private String token;
     private int score;
     private Boolean[] access;
     private Integer[] testsBests;
@@ -23,13 +23,13 @@ public class User {
 
 
     public User(int _id, String email, String login,
-                String password, String accessToken, int score, Boolean[] access,
+                String password, String token, int score, Boolean[] access,
                 Integer[] testsBests, Integer[] gamesBests) {
         this._id = _id;
         this.email = email;
         this.login = login;
         this.password = password;
-        this.accessToken = accessToken;
+        this.token = token;
         this.score = score;
         this.access = access;
         this.testsBests = testsBests;
@@ -39,12 +39,12 @@ public class User {
     public User() {}
 
     public User(String email, String login,
-                String password, String accessToken, int score,
+                String password, String token, int score,
                 Boolean[] access, Integer[] testsBests, Integer[] gamesBests) {
         this.email = email;
         this.login = login;
         this.password = password;
-        this.accessToken = accessToken;
+        this.token = token;
         this.score = score;
         this.access = access;
         this.testsBests = testsBests;
@@ -57,7 +57,7 @@ public class User {
                 ", \"email\":\"" + email + '\"' +
                 ", \"login\":\"" + login + '\"' +
                 ", \"password\":\"" + password + '\"' +
-                ", \"accessToken\":\"" + accessToken + '\"' +
+                ", \"token\":\"" + token + '\"' +
                 ", \"score\":" + score +
                 ", \"access\":" + Arrays.toString(access) +
                 ", \"testsBests\":" + Arrays.toString(testsBests) +
@@ -81,8 +81,8 @@ public class User {
         return password;
     }
 
-    public String getAccessToken() {
-        return accessToken;
+    public String getToken() {
+        return token;
     }
 
     public int getScore() {
@@ -117,8 +117,8 @@ public class User {
         this.password = password;
     }
 
-    public void setAccessToken(String accessToken) {
-        this.accessToken = accessToken;
+    public void setToken(String token) {
+        this.token = token;
     }
 
     public void setScore(int score) {

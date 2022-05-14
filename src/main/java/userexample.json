@@ -3,7 +3,7 @@
     "email": "email",
     "login": "login",
     "password": "password",
-    "accessToken": "token",
+    "token": "token",
     "score": 0,
     "access" : [true, false, false, false, false, false],
     "testsBests": [null, null, null, null, null, null],
