@@ -9,7 +9,7 @@ import java.util.Arrays;
 @Document(collection = "users")
 public class User {
     @Id
-    private  int _id;
+    private String id;
     @Indexed(unique = true)
     private String email;
      @Indexed(unique = true)
@@ -22,10 +22,10 @@ public class User {
     private Integer[] gamesBests;
 
 
-    public User(int _id, String email, String login,
+    public User(String id, String email, String login,
                 String password, String token, int score, Boolean[] access,
                 Integer[] testsBests, Integer[] gamesBests) {
-        this._id = _id;
+        this.id = id;
         this.email = email;
         this.login = login;
         this.password = password;
@@ -53,7 +53,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "{" + "\"_id\":" +  _id +
+        return "{" + "\"_id\":" + id +
                 ", \"email\":\"" + email + '\"' +
                 ", \"login\":\"" + login + '\"' +
                 ", \"password\":\"" + password + '\"' +
@@ -65,8 +65,8 @@ public class User {
                 '}';
     }
 
-    public int get_id() {
-        return _id;
+    public String getId() {
+        return id;
     }
 
     public String getEmail() {
@@ -101,8 +101,8 @@ public class User {
         return gamesBests;
     }
 
-    public void set_id(int _id) {
-        this._id = _id;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public void setEmail(String email) {

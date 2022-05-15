@@ -1,8 +1,7 @@
 package infoGamesServer;
 
-import infoGamesServer.models.AuthData;
-import infoGamesServer.models.Token;
 import infoGamesServer.models.User;
+import infoGamesServer.models.UserData;
 import infoGamesServer.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,15 +22,14 @@ public class UserController {
 
     @PostMapping(value = "/v1/users")
     public ResponseEntity<?> create(@RequestBody User user) {
-        Token token = userService.create(user);
+        String token = userService.create(user);
         if (token != null)
             return new ResponseEntity<>(token, HttpStatus.CREATED);
-        return new ResponseEntity<>(null, HttpStatus.CONFLICT);
+        return new ResponseEntity<>(HttpStatus.CONFLICT);
     }
 
     @GetMapping(value = "/v1/users")
     public ResponseEntity<User> read(@RequestHeader("Authorization") String token) {
-        System.out.println(token);
         final User user = userService.read(token);
         return user != null
                 ? new ResponseEntity<>(user, HttpStatus.OK)
@@ -50,6 +48,7 @@ public class UserController {
     }
 
 
+    //TODO Удалить
     @GetMapping(value = "/test")
     public ResponseEntity<?> test(@RequestHeader("Authorization") String token) {
         System.out.println(token);
@@ -58,8 +57,8 @@ public class UserController {
 
 
     @PutMapping(value = "/v1/users")
-    public ResponseEntity<?> update(@RequestBody User user) {
-        final boolean updated = userService.update(user.getToken(), user.getScore(), user.getAccess(), user.getTestsBests(), user.getGamesBests());
+    public ResponseEntity<?> update(@RequestBody UserData userData) {
+        final boolean updated = userService.update(userData.getToken(), userData.getScore(), userData.getAccess(), userData.getTestsBests(), userData.getGamesBests());
         return updated
                 ? new ResponseEntity<>(true, HttpStatus.OK)
                 : new ResponseEntity<>(false, HttpStatus.NOT_MODIFIED);

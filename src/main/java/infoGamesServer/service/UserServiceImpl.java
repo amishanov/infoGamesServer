@@ -1,7 +1,6 @@
 package infoGamesServer.service;
 
 import infoGamesServer.UserRepository;
-import infoGamesServer.models.Token;
 import infoGamesServer.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -24,12 +23,12 @@ public class UserServiceImpl implements UserService {
         this.userRepository = userRepository;
     }
     @Override
-    public Token create(User user) {
+    public String create(User user) {
         Query query = new Query();
         query.addCriteria(Criteria.where("email").is(user.getEmail()).and("login").is(user.getLogin()));
         List<User> users = mongoTemplate.find(query, User.class);
-        Token token = new Token(user.getLogin() + Math.random());
-        user.setToken(token.getToken());
+        String token = user.getLogin() + Math.random();
+        user.setToken(token);
         if (users.isEmpty()) {
             System.out.println("Inserting user " + user);
             userRepository.insert(user);
@@ -73,15 +72,17 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean update(String token, int score, Boolean[] access, Integer[] testsBests, Integer[] gamesBests) {
         Query query = new Query();
-        query.addCriteria(Criteria.where("accessToken").is(token));
+        query.addCriteria(Criteria.where("token").is(token));
         User user = mongoTemplate.findOne(query, User.class);
+        System.out.println("Update user: " + user);
         if (user != null) {
             user.setScore(score);
             user.setAccess(access);
             user.setTestsBests(testsBests);
             user.setGamesBests(gamesBests);
             mongoTemplate.save(user);
-            System.out.println(user.toString());
+//            mongoTemplate.update(user);
+            System.out.println(user);
             return true;
         }
         return false;
@@ -96,9 +97,4 @@ public class UserServiceImpl implements UserService {
 //            return false;
 //                });
 
-
-    @Override
-    public boolean delete(User user, String login) {
-        return false;
-    }
 }

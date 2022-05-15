@@ -1,11 +1,10 @@
 package infoGamesServer.service;
 
-import infoGamesServer.models.Token;
 import infoGamesServer.models.User;
 
 public interface UserService {
 
-    Token create(User user);
+    String create(User user);
 
     User read(String token);
 
@@ -14,5 +13,4 @@ public interface UserService {
     boolean update(String token, int score, Boolean[] access, Integer[] testsBests, Integer[] gamesBests);
 
 
-    boolean delete(User user, String login);
 }
