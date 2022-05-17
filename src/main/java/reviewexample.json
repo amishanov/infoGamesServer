@@ -1,12 +1,12 @@
 {
     "_id": "1",
-    "type": "Test",
+    "type": 1,
     "materialId": 1,
     "evaluation" : 3
 }
 {
     "_id": "2",
-    "type": "Theme",
+    "type": 2,
     "materialId": 3,
     "evaluation": 4
 }

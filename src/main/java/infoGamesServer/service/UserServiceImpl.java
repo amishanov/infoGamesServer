@@ -34,7 +34,7 @@ public class UserServiceImpl implements UserService {
             userRepository.insert(user);
             return token;
         } else {
-            System.out.println(user + "already exists");
+            System.out.println("Already exists: " + user);
             return null;
         }
     }
@@ -45,11 +45,11 @@ public class UserServiceImpl implements UserService {
         query.addCriteria(Criteria.where("token").is(token));
         List<User> users = mongoTemplate.find(query, User.class);
         if (users.isEmpty()) {
-            System.out.println("User was not found");
+            System.out.println("Read by token: User was not found");
             return null;
         }
         else {
-            System.out.println("User was found");
+            System.out.println("Read by token: User was found");
             return users.get(0);
         }
     }
@@ -60,23 +60,24 @@ public class UserServiceImpl implements UserService {
         query.addCriteria(Criteria.where("login").is(login).and("password").is(password));
         List<User> users = mongoTemplate.find(query, User.class);
         if (users.isEmpty()) {
-            System.out.println("User was not found");
+            System.out.println("Read by login: User was not found");
             return null;
         }
         else {
-            System.out.println("User was found");
+            System.out.println("Read by login: User was found");
             return users.get(0);
         }
     }
 
     @Override
-    public boolean update(String token, int score, Boolean[] access, Integer[] testsBests, Integer[] gamesBests) {
+    public boolean update(String token, int score, Boolean[] progress, Boolean[] access, Integer[] testsBests, Integer[] gamesBests) {
         Query query = new Query();
         query.addCriteria(Criteria.where("token").is(token));
         User user = mongoTemplate.findOne(query, User.class);
         System.out.println("Update user: " + user);
         if (user != null) {
             user.setScore(score);
+            user.setProgress(progress);
             user.setAccess(access);
             user.setTestsBests(testsBests);
             user.setGamesBests(gamesBests);

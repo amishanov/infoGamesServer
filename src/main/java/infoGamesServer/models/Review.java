@@ -1,6 +1,5 @@
 package infoGamesServer.models;
 
-import infoGamesServer.service.ReviewService;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -8,12 +7,12 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Review {
     @Id
     private String id;
-    private String type;
+    private int type;
     private int materialId;
     private int evaluation;
 
     public Review()  {}
-    public Review(String id, String type, int materialId, int evaluation) {
+    public Review(String id, int type, int materialId, int evaluation) {
         this.id = id;
         this.type = type;
         this.materialId = materialId;
@@ -28,11 +27,11 @@ public class Review {
         this.id = id;
     }
 
-    public String getType() {
+    public int getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(int type) {
         this.type = type;
     }
 

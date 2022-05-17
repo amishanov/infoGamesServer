@@ -17,13 +17,14 @@ public class User {
     private String password;
     private String token;
     private int score;
+    private Boolean[] progress;
     private Boolean[] access;
     private Integer[] testsBests;
     private Integer[] gamesBests;
 
 
     public User(String id, String email, String login,
-                String password, String token, int score, Boolean[] access,
+                String password, String token, int score, Boolean[] progress, Boolean[] access,
                 Integer[] testsBests, Integer[] gamesBests) {
         this.id = id;
         this.email = email;
@@ -31,6 +32,7 @@ public class User {
         this.password = password;
         this.token = token;
         this.score = score;
+        this.progress = progress;
         this.access = access;
         this.testsBests = testsBests;
         this.gamesBests = gamesBests;
@@ -39,13 +41,14 @@ public class User {
     public User() {}
 
     public User(String email, String login,
-                String password, String token, int score,
+                String password, String token, int score, Boolean[] progress,
                 Boolean[] access, Integer[] testsBests, Integer[] gamesBests) {
         this.email = email;
         this.login = login;
         this.password = password;
         this.token = token;
         this.score = score;
+        this.progress = progress;
         this.access = access;
         this.testsBests = testsBests;
         this.gamesBests = gamesBests;
@@ -59,6 +62,7 @@ public class User {
                 ", \"password\":\"" + password + '\"' +
                 ", \"token\":\"" + token + '\"' +
                 ", \"score\":" + score +
+                ", \"progress\":" + Arrays.toString(progress) +
                 ", \"access\":" + Arrays.toString(access) +
                 ", \"testsBests\":" + Arrays.toString(testsBests) +
                 ", \"gamesBests\":" + Arrays.toString(gamesBests) +
@@ -137,4 +141,11 @@ public class User {
         this.gamesBests = gamesBests;
     }
 
+    public Boolean[] getProgress() {
+        return progress;
+    }
+
+    public void setProgress(Boolean[] progress) {
+        this.progress = progress;
+    }
 }

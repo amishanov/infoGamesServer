@@ -48,17 +48,10 @@ public class UserController {
     }
 
 
-    //TODO Удалить
-    @GetMapping(value = "/test")
-    public ResponseEntity<?> test(@RequestHeader("Authorization") String token) {
-        System.out.println(token);
-        return null;
-    }
-
-
     @PutMapping(value = "/v1/users")
     public ResponseEntity<?> update(@RequestBody UserData userData) {
-        final boolean updated = userService.update(userData.getToken(), userData.getScore(), userData.getAccess(), userData.getTestsBests(), userData.getGamesBests());
+        final boolean updated = userService.update(userData.getToken(), userData.getScore(), userData.getProgress(),
+                userData.getAccess(), userData.getTestsBests(), userData.getGamesBests());
         return updated
                 ? new ResponseEntity<>(true, HttpStatus.OK)
                 : new ResponseEntity<>(false, HttpStatus.NOT_MODIFIED);

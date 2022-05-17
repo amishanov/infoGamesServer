@@ -9,12 +9,15 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
 import java.util.List;
 
 @SpringBootApplication
 public class InfoGamesServerApplication {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws NoSuchAlgorithmException {
 		SpringApplication.run(InfoGamesServerApplication.class, args);
 		String connection = "mongodb://localhost:27017";
 		String dbName = "infoGames";

@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -19,8 +20,11 @@ public class ReviewController {
     }
 
     @PostMapping("/v1/reviews")
-    public ResponseEntity<?> createReview(@RequestBody Review review) {
-        reviewService.createReview(review);
-        return new ResponseEntity<> (HttpStatus.CREATED);
+    public ResponseEntity<?> createReview(@RequestHeader("Authorization") String token, @RequestBody Review review) {
+        boolean res = reviewService.createReview(token, review);
+        if (res)
+            return new ResponseEntity<> (HttpStatus.CREATED);
+        else
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
     }
 }

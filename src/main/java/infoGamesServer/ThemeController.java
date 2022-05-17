@@ -1,6 +1,7 @@
-package infoGamesServer.service;
+package infoGamesServer;
 
 import infoGamesServer.models.Theme;
+import infoGamesServer.service.ThemeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

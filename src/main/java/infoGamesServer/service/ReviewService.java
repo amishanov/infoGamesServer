@@ -7,5 +7,5 @@ import org.springframework.stereotype.Service;
 
 
 public interface ReviewService {
-    public void createReview(Review review);
+    public boolean createReview(String token, Review review);
 }

@@ -10,7 +10,7 @@ public interface UserService {
 
     User readByLogin(String login, String password);
 
-    boolean update(String token, int score, Boolean[] access, Integer[] testsBests, Integer[] gamesBests);
+    boolean update(String token, int score, Boolean[] progress, Boolean[] access, Integer[] testsBests, Integer[] gamesBests);
 
 
 }
