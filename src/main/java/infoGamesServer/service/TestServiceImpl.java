@@ -3,6 +3,7 @@ package infoGamesServer.service;
 import infoGamesServer.TestRepository;
 import infoGamesServer.models.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -24,10 +25,11 @@ public class TestServiceImpl implements TestService{
     }
     @Override
     public List<Test> getTests() {
-//        Query query = new Query();
+        Query query = new Query();
+        query.with(Sort.by("_id"));
 //        query.addCriteria(Criteria.where("version").ne(null));
-//        List<Test> tests = mongoTemplate.findAll(Test.class);
-        List<Test> tests = testRepository.findAll();
+        List<Test> tests = mongoTemplate.find(query, Test.class);
+//        List<Test> tests = testRepository.findAll();
         if (tests.isEmpty()) {
             System.out.println("Tests was not found");
             return null;
