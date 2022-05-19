@@ -1,5 +1,6 @@
 package infoGamesServer.service;
 
+import infoGamesServer.AdminRepository;
 import infoGamesServer.UserRepository;
 import infoGamesServer.models.Review;
 import infoGamesServer.models.User;
@@ -15,10 +16,12 @@ import java.util.List;
 public class ReviewServiceImpl implements ReviewService{
 
     MongoTemplate mongoTemplate;
+    AdminRepository adminRepository;
 
     @Autowired
-    public ReviewServiceImpl(MongoTemplate mongoTemplate) {
+    public ReviewServiceImpl(MongoTemplate mongoTemplate, AdminRepository adminRepository) {
         this.mongoTemplate = mongoTemplate;
+        this.adminRepository = adminRepository;
     }
     @Override
     public boolean createReview(String token, Review review) {
@@ -32,5 +35,13 @@ public class ReviewServiceImpl implements ReviewService{
         mongoTemplate.insert(review);
         System.out.println("Create review");
         return true;
+    }
+
+    @Override
+    public List<Review> getReviews(String token) {
+        if (adminRepository.findAdminByToken(token) != null) {
+            return mongoTemplate.findAll(Review.class);
+        }
+        return null;
     }
 }

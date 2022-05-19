@@ -5,10 +5,9 @@ import infoGamesServer.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class ReviewController {
@@ -26,5 +25,14 @@ public class ReviewController {
             return new ResponseEntity<> (HttpStatus.CREATED);
         else
             return new ResponseEntity<>(HttpStatus.CONFLICT);
+    }
+
+    @GetMapping("/v1/reviews")
+    public ResponseEntity<List<Review>> getReviews(@RequestHeader("Authorization") String token) {
+        List<Review> reviews = reviewService.getReviews(token);
+        if (reviews == null)
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        else
+            return new ResponseEntity<>(reviews, HttpStatus.OK);
     }
 }
