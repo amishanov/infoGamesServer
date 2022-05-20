@@ -1,4 +1,4 @@
-package infoGamesServer.service;
+package infoGamesServer.services;
 
 import infoGamesServer.models.Theme;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +28,7 @@ public class ThemeServiceImpl implements ThemeService{
             System.out.println("Themes was not found");
             return null;
         }
-        System.out.println("Themes was found");
+//        System.out.println("Themes was found");
         return themes;
     }
 

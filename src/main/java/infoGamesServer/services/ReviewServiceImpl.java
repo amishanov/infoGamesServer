@@ -1,7 +1,6 @@
-package infoGamesServer.service;
+package infoGamesServer.services;
 
 import infoGamesServer.AdminRepository;
-import infoGamesServer.UserRepository;
 import infoGamesServer.models.Review;
 import infoGamesServer.models.User;
 import org.springframework.beans.factory.annotation.Autowired;

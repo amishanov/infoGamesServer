@@ -1,7 +1,7 @@
-package infoGamesServer;
+package infoGamesServer.Controllers;
 
 import infoGamesServer.models.Test;
-import infoGamesServer.service.TestService;
+import infoGamesServer.services.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

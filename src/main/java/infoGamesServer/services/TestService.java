@@ -1,4 +1,4 @@
-package infoGamesServer.service;
+package infoGamesServer.services;
 
 import infoGamesServer.models.Test;
 

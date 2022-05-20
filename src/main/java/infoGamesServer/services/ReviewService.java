@@ -1,9 +1,6 @@
-package infoGamesServer.service;
+package infoGamesServer.services;
 
 import infoGamesServer.models.Review;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
