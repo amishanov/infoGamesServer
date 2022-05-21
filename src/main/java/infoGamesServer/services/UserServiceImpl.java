@@ -88,14 +88,4 @@ public class UserServiceImpl implements UserService {
         }
         return false;
     }
-//        userRepository.findUserByAccessToken(token).ifPresentOrElse( user -> {
-//            user.setAccess(access);
-//            user.setTestsBests(testsBests);
-//            user.setGamesBests(gamesBests);
-//            userRepository.save(user);
-//            res = true;
-//            }, () -> {
-//            return false;
-//                });
-
 }
