@@ -1,5 +1,6 @@
 package infoGamesServer.services;
 
+import infoGamesServer.AdminRepository;
 import infoGamesServer.TestRepository;
 import infoGamesServer.models.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +16,13 @@ public class TestServiceImpl implements TestService{
 
     private MongoTemplate mongoTemplate;
     private TestRepository testRepository;
+    AdminRepository adminRepository;
 
     @Autowired
-    public TestServiceImpl(MongoTemplate mongoTemplate, TestRepository testRepository) {
+    public TestServiceImpl(MongoTemplate mongoTemplate, TestRepository testRepository, AdminRepository adminRepository) {
         this.mongoTemplate = mongoTemplate;
         this.testRepository = testRepository;
+        this.adminRepository = adminRepository;
     }
     @Override
     public List<Test> getTests() {
@@ -35,6 +38,17 @@ public class TestServiceImpl implements TestService{
             System.out.println("Tests was FOUND");
             return tests;
         }
+    }
+
+    @Override
+    public boolean updateTests(List<Test> tests, String token) {
+        if (adminRepository.findAdminByToken(token) != null) {
+            for (Test test: tests) {
+                mongoTemplate.save(test);
+            }
+            return true;
+        }
+        return false;
     }
 
     @Override

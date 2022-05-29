@@ -1,5 +1,6 @@
 package infoGamesServer.services;
 
+import infoGamesServer.AdminRepository;
 import infoGamesServer.models.Theme;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -13,10 +14,12 @@ import java.util.List;
 public class ThemeServiceImpl implements ThemeService{
 
     MongoTemplate mongoTemplate;
+    AdminRepository adminRepository;
 
     @Autowired
-    public ThemeServiceImpl(MongoTemplate mongoTemplate) {
+    public ThemeServiceImpl(MongoTemplate mongoTemplate, AdminRepository adminRepository) {
         this.mongoTemplate = mongoTemplate;
+        this.adminRepository = adminRepository;
     }
 
     @Override
@@ -30,6 +33,21 @@ public class ThemeServiceImpl implements ThemeService{
         }
 //        System.out.println("Themes was found");
         return themes;
+    }
+
+    @Override
+    public boolean updateThemes(List<Theme> themes, String token) {
+        System.out.println("Update themes: start");
+        if (adminRepository.findAdminByToken(token) != null) {
+            System.out.println("update Themes: token accepted");
+            for (Theme theme: themes) {
+//                System.out.println(theme.toString());
+                mongoTemplate.save(theme);
+            }
+            return true;
+        }
+        System.out.println("Update themes: Failed");
+        return false;
     }
 
 
