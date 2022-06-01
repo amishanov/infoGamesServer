@@ -22,7 +22,8 @@ public class InfoGamesServerApplication {
 		String connection = "mongodb://localhost:27017";
 		String dbName = "infoGames";
 		String userCollection = "users";
-
+		final String dir = System.getProperty("user.dir");
+		System.out.println("current dir = " + dir);
 		String jsonStr = "{\"_id\": 1,\"email\": \"email\", \"login\": \"login\"," +
 				" \"password\": \"password\", \"token\": \"token\", \"score\": 0," +
 				" \"access\" : [true, false, false, false, false, false]," +
